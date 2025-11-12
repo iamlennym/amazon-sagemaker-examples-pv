@@ -4,8 +4,13 @@ import setuptools
 
 about = {}
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, "pipelines", "__version__.py")) as f:
-    exec(f.read(), about)
+version_file = os.path.join(here, "pipelines", "__version__.py")
+with open(version_file) as f:
+    for line in f:
+        if line.startswith("__version__"):
+            delim = '"' if '"' in line else "'"
+            about["__version__"] = line.split(delim)[1]
+            break
 
 
 with open("README.md", "r") as f:
